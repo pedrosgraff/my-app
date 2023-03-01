@@ -59,16 +59,17 @@ function App() {
   ////////////////////////////////////////////
 
   function toogleDone(elemento: Todo) {
-    setTodos((atual) => {
-      const arr = [...atual]; // copiou array
-      const el = arr.find((value) => value.id === elemento.id) as Todo;
-      el.toggleDone();
-
-      return arr;
+    const arr = [...todos];
+    arr.map((value) => {
+      if (value.id === elemento.id) {
+        value.toggleDone();
+      }
     });
+    setTodos(arr);
   }
 
   /////////////////////////////////////////
+
   return (
     <div className="App">
       <h1>{todo}</h1>
@@ -87,7 +88,6 @@ function App() {
                 <input
                   type="checkbox"
                   name="FeitoNFeito"
-                  value="TEste"
                   checked={elemento.done}
                   onChange={() => toogleDone(elemento)}
                 />
