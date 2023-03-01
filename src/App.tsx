@@ -29,20 +29,23 @@ function App() {
   /* declarando uma classe para testar const todoTeste = new Todo("Pedro");
   console.log(todoTeste); */
 
+  // ["teste1", "teste2", "teste"]
+  // aqui
+  // [<h1>teste1</h1>, <h1>teste2</h1>]
+
   const [todo, setTodo] = useState("teste" + Math.pow(4, 5));
   const [todos, setTodos] = useState([new Todo("Obj1"), new Todo("Obj2")]);
 
-  function toogleDone(elemento: Todo) {
-    setTodos((atual) => {
-      const arr = [...atual]; // copiou array
-      // aqui ta o erro
-      const el = arr.find((value) => value.id === elemento.id) as Todo;
+  ////////////////////////////////////////////
 
-      el.toggleDone();
+  function add() {
+    const todoTest = new Todo(todo);
+    console.log(todoTest);
+    setTodos((atual) => [...atual, todoTest]);
 
-      return arr;
-    });
+    // () => setTodos((atual) => [...atual, todo])
   }
+  ////////////////////////////////////////////
 
   function remove(elemento: Todo) {
     setTodos((atual) => {
@@ -53,18 +56,19 @@ function App() {
       return arr;
     });
   }
+  ////////////////////////////////////////////
 
-  // ["teste1", "teste2", "teste"]
-  // aqui
-  // [<h1>teste1</h1>, <h1>teste2</h1>]
-  function add() {
-    const todoTest = new Todo(todo);
-    console.log(todoTest);
-    setTodos((atual) => [...atual, todoTest]);
+  function toogleDone(elemento: Todo) {
+    setTodos((atual) => {
+      const arr = [...atual]; // copiou array
+      const el = arr.find((value) => value.id === elemento.id) as Todo;
+      el.toggleDone();
 
-    // () => setTodos((atual) => [...atual, todo])
+      return arr;
+    });
   }
 
+  /////////////////////////////////////////
   return (
     <div className="App">
       <h1>{todo}</h1>
@@ -82,12 +86,13 @@ function App() {
               <td>
                 <input
                   type="checkbox"
+                  name="FeitoNFeito"
+                  value="TEste"
                   checked={elemento.done}
                   onChange={() => toogleDone(elemento)}
                 />
               </td>
             </tr>
-
             <button onClick={() => remove(elemento)}>Remove</button>
           </div>
         );
